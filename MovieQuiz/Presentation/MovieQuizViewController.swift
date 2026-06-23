@@ -4,21 +4,28 @@ final class MovieQuizViewController: UIViewController {
     private let questions: [QuizQuestion] = generateMocks()
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
+    private var isEnabled = true
     
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var counterLabel: UILabel!
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak private var imageView: UIImageView?
+    @IBOutlet weak private var counterLabel: UILabel?
+    @IBOutlet weak private var textLabel: UILabel?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageView?.layer.cornerRadius = 20
         
         show(
             quiz: convert(model: questions[0])
         )
     }
     
-    @IBAction func yesButtonClicked(_ sender: UIButton) {
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        if !isEnabled {
+            return
+        }
+        
         showAnswerResult(
             isCorrect: checkQuestion(
                 index: currentQuestionIndex,
@@ -28,7 +35,11 @@ final class MovieQuizViewController: UIViewController {
     }
     
     
-    @IBAction func noButtonClicked(_ sender: UIButton) {
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
+        if !isEnabled {
+            return
+        }
+        
         showAnswerResult(
             isCorrect: checkQuestion(
                 index: currentQuestionIndex,
@@ -53,22 +64,25 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func show(quiz step: QuizStepViewModel) {
-        self.imageView.image = step.image
-        self.counterLabel.text = step.questionNumber
-        self.textLabel.text = step.question
+        self.imageView?.image = step.image
+        self.counterLabel?.text = step.questionNumber
+        self.textLabel?.text = step.question
     }
     
     private func showAnswerResult(isCorrect: Bool) {
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = isCorrect
+        isEnabled = false
+        
+        imageView?.layer.masksToBounds = true
+        imageView?.layer.borderWidth = 8
+        imageView?.layer.borderColor = isCorrect
             ? UIColor.ypGreen.cgColor
             : UIColor.ypRed.cgColor
-        imageView.layer.cornerRadius = 6
+        imageView?.layer.cornerRadius = 20
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.imageView.layer.borderWidth = 0
+            self.imageView?.layer.borderWidth = 0
             self.showNextQuestionOrResults()
+            self.isEnabled = true
         }
     }
     
@@ -99,7 +113,6 @@ final class MovieQuizViewController: UIViewController {
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             
-            // заново показываем первый вопрос
             let firstQuestion = self.questions[self.currentQuestionIndex]
             let viewModel = self.convert(model: firstQuestion)
             self.show(quiz: viewModel)
@@ -173,67 +186,3 @@ private func generateMocks() -> [QuizQuestion] {
             correctAnswer: false)
     ]
 }
-
-/*
- Mock-данные
- 
- 
- Картинка: The Godfather
- Настоящий рейтинг: 9,2
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: ДА
- 
- 
- Картинка: The Dark Knight
- Настоящий рейтинг: 9
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: ДА
- 
- 
- Картинка: Kill Bill
- Настоящий рейтинг: 8,1
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: ДА
- 
- 
- Картинка: The Avengers
- Настоящий рейтинг: 8
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: ДА
- 
- 
- Картинка: Deadpool
- Настоящий рейтинг: 8
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: ДА
- 
- 
- Картинка: The Green Knight
- Настоящий рейтинг: 6,6
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: ДА
- 
- 
- Картинка: Old
- Настоящий рейтинг: 5,8
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: НЕТ
- 
- 
- Картинка: The Ice Age Adventures of Buck Wild
- Настоящий рейтинг: 4,3
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: НЕТ
- 
- 
- Картинка: Tesla
- Настоящий рейтинг: 5,1
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: НЕТ
- 
- 
- Картинка: Vivarium
- Настоящий рейтинг: 5,8
- Вопрос: Рейтинг этого фильма больше чем 6?
- Ответ: НЕТ
-*/
