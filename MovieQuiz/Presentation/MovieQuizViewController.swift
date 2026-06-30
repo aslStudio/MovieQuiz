@@ -96,10 +96,9 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         ) { [weak self] in
             guard let self = self else { return }
             
-            self.presenter?.restartGame()
+            self.presenter?.retryLoadData()
         }
         
         alertPresenter.show(in: self, model: model)
     }
 }
-

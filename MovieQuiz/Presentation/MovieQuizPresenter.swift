@@ -53,6 +53,14 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
     }
     
+    func retryLoadData() {
+        currentQuestionIndex = 0
+        correctAnswers = 0
+        currentQuestion = nil
+        viewController?.showLoadingIndicator()
+        questionFactory?.loadData()
+    }
+    
     func switchToNextQuestion() {
         currentQuestionIndex += 1
     }
