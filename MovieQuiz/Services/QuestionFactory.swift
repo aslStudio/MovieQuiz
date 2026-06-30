@@ -2,9 +2,10 @@ import Foundation
 
 class QuestionFactory: QuestionFactoryProtocol {
     private let moviesLoader: MoviesLoading
-    private var delegate: QuestionFactoryDelegate?
+    private weak var delegate: QuestionFactoryDelegate?
     
     private var movies: [MostPopularMovie] = []
+    private var previousMovieIndex: Int?
     
     init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate?) {
         self.moviesLoader = moviesLoader
@@ -29,7 +30,13 @@ class QuestionFactory: QuestionFactoryProtocol {
     func requestNextQuestion() {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            let index = (0..<self.movies.count).randomElement() ?? 0
+            var availableIndexes = Array(0..<self.movies.count)
+            if self.movies.count > 1, let previousMovieIndex = self.previousMovieIndex {
+                availableIndexes.removeAll { $0 == previousMovieIndex }
+            }
+            
+            let index = availableIndexes.randomElement() ?? 0
+            self.previousMovieIndex = index
             
             guard let movie = self.movies[safe: index] else { return }
             
