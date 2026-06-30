@@ -46,14 +46,14 @@
                                         </subviews>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o5k-me-W36">
-                                        <rect key="frame" x="0.0" y="43.5" width="374" height="561"/>
+                                        <rect key="frame" x="0.0" y="43.5" width="372.5" height="558.5"/>
                                         <color key="backgroundColor" name="YP White"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="o5k-me-W36" secondAttribute="height" multiplier="2:3" id="tgu-rF-cA3"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="321-aY-PZF">
-                                        <rect key="frame" x="0.0" y="624.5" width="374" height="17.5"/>
+                                        <rect key="frame" x="0.0" y="622" width="374" height="20"/>
                                         <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                         <color key="textColor" name="YP White"/>
                                         <nil key="highlightedColor"/>
@@ -110,17 +110,23 @@
                                     <constraint firstItem="CiX-mb-d1R" firstAttribute="leading" secondItem="zNw-H5-yW9" secondAttribute="leading" id="yGz-Os-iOu"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="HHJ-jO-DaM">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zNw-H5-yW9" secondAttribute="trailing" constant="20" id="0kH-gZ-8Mv"/>
+                            <constraint firstItem="HHJ-jO-DaM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="311-Wv-rdH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zNw-H5-yW9" secondAttribute="bottom" id="6TK-lq-PQp"/>
+                            <constraint firstItem="HHJ-jO-DaM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EwM-eE-4SK"/>
                             <constraint firstItem="zNw-H5-yW9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QVc-sD-k62"/>
                             <constraint firstItem="zNw-H5-yW9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="vLq-GD-ntV"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="HHJ-jO-DaM" id="Trq-ve-D2T"/>
                         <outlet property="counterLabel" destination="ubb-aa-jXj" id="1ZS-7U-f4g"/>
                         <outlet property="imageView" destination="o5k-me-W36" id="HKX-Hv-ejB"/>
                         <outlet property="textLabel" destination="321-aY-PZF" id="Jm9-UL-fcE"/>
